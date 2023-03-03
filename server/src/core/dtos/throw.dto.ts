@@ -1,7 +1,12 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
-export class ThrowDTO {
-  @IsNumber()
+export class ThrowDto {
   @IsNotEmpty()
-  current: Number;
+  dice: Array<number>
+
+  @IsNotEmpty()
+  destination: number
+  
+  @IsNotEmpty()
+  hit: String
 }

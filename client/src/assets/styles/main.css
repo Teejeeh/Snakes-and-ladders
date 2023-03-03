@@ -1,0 +1,7 @@
+html {
+  @apply antialiased min-h-full;
+}
+
+.board {
+  @apply h-full w-full grid absolute top-0 left-0 overflow-hidden
+}
