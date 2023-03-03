@@ -86,12 +86,6 @@ npm install
 ```
 npm start
 ```
-## Authors
-Royi Benita
-## Version History
-* 1.0
-## License
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
 ## Acknowledgments
 Inspiration, code snippets, etc.
 * [clean-architecture-node](https://github.com/royib/clean-architecture-node)
