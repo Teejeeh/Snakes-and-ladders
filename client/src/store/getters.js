@@ -15,7 +15,7 @@ export default {
     const turns = state.game.turns
     const turn_amount = turns.length
     const player_amount = state.game.players
-
+    
     let players = Array(player_amount).fill({})
     const lastMoves = turns.slice(-player_amount)
 

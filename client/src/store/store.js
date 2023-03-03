@@ -5,8 +5,8 @@ import actions from './actions';
 
 export const store = createStore({
   state: {
-    board: {},
-    game: {},
+    board: null,
+    game: null,
     defs: {
       transitionTime: 500,
       playerColors: ['red', 'blue', 'green', 'orange'],

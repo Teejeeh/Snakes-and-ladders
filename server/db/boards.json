@@ -1,0 +1,67 @@
+[
+  {
+    "id": "6401af34736bc1f56cea28bd",
+    "base": 10,
+    "img": "/board.jpeg",
+    "snakes": [
+      {
+        "begin": 27,
+        "end": 5
+      },
+      {
+        "begin": 40,
+        "end": 3
+      },
+      {
+        "begin": 43,
+        "end": 18
+      },
+      {
+        "begin": 54,
+        "end": 31
+      },
+      {
+        "begin": 66,
+        "end": 45
+      },
+      {
+        "begin": 76,
+        "end": 58
+      },
+      {
+        "begin": 89,
+        "end": 53
+      },
+      {
+        "begin": 99,
+        "end": 41
+      }
+    ],
+    "ladders": [
+      {
+        "begin": 4,
+        "end": 25
+      },
+      {
+        "begin": 13,
+        "end": 46
+      },
+      {
+        "begin": 50,
+        "end": 69
+      },
+      {
+        "begin": 42,
+        "end": 63
+      },
+      {
+        "begin": 62,
+        "end": 81
+      },
+      {
+        "begin": 74,
+        "end": 92
+      }
+    ]
+  }
+]

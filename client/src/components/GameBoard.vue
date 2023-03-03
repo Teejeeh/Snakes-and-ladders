@@ -1,16 +1,6 @@
 <template>
   <div>
     <img :src="board.img" alt="" class="board">
-    <div
-      class="board"
-      :style="{ 'grid-template-areas': boardGrid }"
-    >
-      <game-board-square
-        v-for="(square, index) in board.base^2"
-        :square="index +1"
-        :key="'square-' + index"
-      />
-    </div>
     <transition-group
       name="move-piece"
       tag="div"
@@ -32,19 +22,16 @@
 </template>
 
 <script>
-import GameBoardSquare from "@/components/GameBoardSquare.vue";
 import GameBoardPiece from "@/components/GameBoardPiece.vue";
 
 export default {
   name: "board",
   props: {
-    game: Object,
     board: Object,
     players: Array,
     defs: Object,
   },
   components: {
-    GameBoardSquare,
     GameBoardPiece,
   },
   computed: {

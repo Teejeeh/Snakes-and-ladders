@@ -1,8 +1,8 @@
 <template>
-  <div class='h-screen w-full max-h-screen flex flex-col flex-wrap'>
+  <div v-if="game" class='h-screen w-full max-h-screen flex flex-col flex-wrap'>
     <div class='relative flex-1'>
       <div class='relative w-full h-full '>
-        <game-board v-if='board' :game='game' :board="board" :players="players" :defs='defs' />
+        <game-board v-if='board' :board="board" :players="players" :defs='defs' />
       </div>
     </div>
 
@@ -44,10 +44,8 @@ export default {
   },
   async created() {
     const gameId = this.$route.params.id;
-    const boardId = 1
 
     await this.loadGame(gameId);
-    await this.loadBoard(boardId);
   },
 };
 </script>

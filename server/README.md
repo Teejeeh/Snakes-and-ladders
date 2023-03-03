@@ -1,59 +1,98 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
+# Clean Architecture With NestJS
 ## Description
+It's been a while since my last article on [how to implement clean architecture on Node.js applications](https://betterprogramming.pub/node-clean-architecture-deep-dive-ab68e523554b), [git repo](https://github.com/royib/clean-architecture-node).
+After working with NestJS and TypeScript I thought it was a good idea to come back and write a new article on the subject. This time we are going to take the super power of typescript and the methodologies and tools of NestJS and harness them to our benefits.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Coming from a background of object-oriented languages, it was natural that we
+wanted to keep all our [SOLID](https://en.wikipedia.org/wiki/SOLID) principles
+in our new and shiny node API.
 
-## Installation
+Like any other architecture, we had to make different trade-offs in the
+implementation.
 
-```bash
-$ npm install
+We had to be careful not to over-engineer or over-abstract our layers, but
+rather keep it as flexible as needed.
+
+In recent years, we have implemented [clean
+architecture](http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+by Robert C. Martin (Uncle Bob) on our API projects. This architecture attempts
+to integrate some of the leading modern architecture like [Hexagonal
+Architecture](http://alistair.cockburn.us/Hexagonal+architecture), [Onion
+Architecture](http://jeffreypalermo.com/blog/the-onion-architecture-part-1/),
+[Screaming
+Architecture](http://blog.cleancoders.com/2011-09-30-Screaming-Architecture)
+into one main architecture. It aims to achieve good separation of concerns. Like
+most architecture, it also aims to make the application more flexible to
+inevitable changes in client requirements (which always happens).
+
+![](https://fullstackroyhome.files.wordpress.com/2019/03/cleanarchitecture.jpg)
+
+clean architecture diagram - dependencies direction are from outside in.
+[source](http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+
+This diagram is taken from the [official
+article](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+by Robert C. Martin. I recommend reading his article before diving into the node
+implementation. This is the best source knowledge about this architecture.
+
+Few words about this diagram and how to read it:
+
+-   Dependency - the dependency direction is from the outside in. meaning that
+    the Entities layer is independent and the Frameworks layer depend on all the
+    other layers.
+
+-   Entities - contains all the business entities that construct our
+    application.
+
+-   Use Cases - This is where we centralize our logic. Each use case
+    orchestrates all of the logic for a specific business use case.
+
+-   Controllers and Presenters - Our controller, presenters, and gateways are
+    intermediate layers. You can think of them as an entry and exit gates to the
+    use cases .
+
+-   Frameworks - This layer has all the specific implementations. The database,
+    the web frameworks, error handling etc.  
+    Robert C. Martin describes this layer :  
+    *“This layer is where all the details go. The Web is a detail. The database
+    is a detail. We keep these things on the outside where they can do little
+    harm.”*
+
+In this point you will probably say to yourself “database is in outer layer,
+database is a detail ???” database is supposed to be my core layer.
+
+I love this architecture because it has a smart motivation behind it. Instead of
+focusing on frameworks and tools, it focuses on the business logic of the
+application. This architecture is framework independent (or as much as it can
+be). This means it doesn’t matter which database, frameworks, UI, external
+services you are using, the entities and the business logic of the application
+will always stay the same. We can change all of the above without changing our
+logic. This is what makes it so easy to test applications built on this
+architecture. Don’t worry if you don’t understand this yet, we will explore it
+step-by-step.
+## Getting Started
+### Dependencies
+* mongoDb - you need to provide a valid mongDb connection string.
+add a new environment variable named CLEAN_NEST_MONGO_CONNECTION_STRING
 ```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+export CLEAN_NEST_MONGO_CONNECTION_STRING='valid mongoDB connection string' 
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+### Installing
 ```
+npm install
+```
+### Executing program
+
+```
+npm start
+```
+## Authors
+Royi Benita
+## Version History
+* 1.0
+## License
+This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+## Acknowledgments
+Inspiration, code snippets, etc.
+* [clean-architecture-node](https://github.com/royib/clean-architecture-node)
+* [Node Clean Architecture — Deep Dive](https://betterprogramming.pub/node-clean-architecture-deep-dive-ab68e523554b)

@@ -1,12 +1,12 @@
+import axios from "axios";
+
 export default {
   getBoards() {
-    return {};
+    const { data } = axios.get('http://localhost:3000/api/board')
+    return data;
   },
-  getBoard(id) {
-    const board = {
-      base: 10,
-      img: "/board.jpeg",
-    };
-    return board;
+  async getBoard(id) {
+    const { data } = await axios.get(`http://localhost:3000/api/board/${id}`)
+    return data;
   },
 };
